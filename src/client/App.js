@@ -1,22 +1,49 @@
 import React, { Component } from 'react'
+import TreeContainer from './components/TreeContainer'
+
 import './app.css'
 
 export default class App extends Component {
-	state = { username: null }
+	state = { json: null, selectedItems: [] }
 
 	componentDidMount() {
-		fetch('/api/getUsername')
+		fetch('/api/getTestJson')
 			.then(res => res.json())
-			.then(user => this.setState({ username: user.username }))
+			.then(data => this.setState({ json: data }))
+	}
+
+	onTreeChange = nodesWithParentsInfo => {
+		console.log('currentNode, selectedNodes', nodesWithParentsInfo)
+		this.setState({ selectedItems: nodesWithParentsInfo })
 	}
 
 	render() {
-		const { username } = this.state
+		const { json, selectedItems } = this.state
+
 		return (
-			<div>
-				{username ? <h1>{`Hello ${username}`}</h1> : <h1>Loading.. please wait!</h1>}
-				<p className="subtitle">My first website with</p>
-			</div>
+			<>
+				<h1 className="title">Network JSON Analyzer</h1>
+				{json && <TreeContainer data={json} onTreeChange={this.onTreeChange} />}
+				<div>
+					<p className="subtitle">Selected items ({selectedItems.length}):</p>
+					{selectedItems.length > 0 ? (
+						<ul>
+							{selectedItems.map(item => (
+								<li key={item._id}>
+									<div>
+										<b>{item.parentsInfo}</b>
+									</div>
+									<div>
+										{item.label}: {item.value}
+									</div>
+								</li>
+							))}
+						</ul>
+					) : (
+						'No selected items.'
+					)}
+				</div>
+			</>
 		)
 	}
 }
