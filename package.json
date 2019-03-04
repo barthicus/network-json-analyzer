@@ -2,12 +2,12 @@
   "name": "network-json-analyzer",
   "version": "1.0.0",
   "description": "network-json-analyzer",
-  "main": "src/server/index.js",
+  "main": "src/server/app.js",
   "scripts": {
     "build": "webpack --mode production",
-    "start": "npm run build && node src/server/index.js",
+    "start": "npm run build && node src/server/app.js",
     "client": "webpack-dev-server --mode development --devtool inline-source-map --hot",
-    "server": "nodemon src/server/index.js",
+    "server": "nodemon src/server/app.js",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "Bartosz Podgruszecki",
