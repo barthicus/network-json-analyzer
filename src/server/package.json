@@ -1,0 +1,11 @@
+{
+  "name": "network-json-analyzer",
+  "version": "1.0.0",
+  "description": "network-json-analyzer",
+  "main": "app.js",
+  "author": "Bartosz Podgruszecki",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
